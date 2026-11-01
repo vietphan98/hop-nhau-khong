@@ -51,6 +51,13 @@
                 </div>
             </section>
 
+            <section class="chart-card" id="searchBox">
+                <h3>🔎 Tra cứu ý nghĩa</h3>
+                <div class="form-group"><input type="text" id="q" placeholder='Ví dụ: "số 7", "1 và 5", "22"'></div>
+                <button id="btnSearch" class="btn btn-secondary">Tra cứu</button>
+                <div id="searchOut"></div>
+            </section>
+
             <section id="result" class="result-section hidden">
                 <div id="card" class="result-card">
                     <div class="names-display">
@@ -81,6 +88,8 @@
                     </div>
                 </div>
 
+                <div class="chart-card"><h3>Cách tính các con số</h3><div id="derive" style="font-size:.9em;line-height:1.6"></div></div>
+                <div class="chart-card"><h3>Hai bạn khi ở cạnh nhau</h3><p id="pairText"></p></div>
                 <div class="tinh-cach-container">
                     <div class="tc-card">
                         <h3 id="tcTitle1"></h3>
