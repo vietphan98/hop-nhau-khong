@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hợp Nhau Không? – Thần số học cặp đôi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hợp Nhau Không?</h1>
+            <p class="subtitle">Thần số học 2 người (tham khảo, giải trí)</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <div class="input-card">
+                    <h2>Bạn</h2>
+                    <div class="form-group">
+                        <label for="name1">Họ và tên</label>
+                        <input type="text" id="name1" placeholder="Nhập họ tên...">
+                    </div>
+                    <div class="form-group">
+                        <label for="dob1">Ngày sinh</label>
+                        <input type="date" id="dob1">
+                    </div>
+                </div>
+
+                <div class="input-card">
+                    <h2>Người ấy</h2>
+                    <div class="form-group">
+                        <label for="name2">Họ và tên</label>
+                        <input type="text" id="name2" placeholder="Nhập họ tên...">
+                    </div>
+                    <div class="form-group">
+                        <label for="dob2">Ngày sinh</label>
+                        <input type="date" id="dob2">
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button id="btnCalc" class="btn btn-primary">Xem hợp không</button>
+                    <button id="btnSample" class="btn btn-secondary">Thử ví dụ</button>
+                    <p id="errorMsg" class="error-msg"></p>
+                </div>
+            </section>
+
+            <section id="result" class="result-section hidden">
+                <div id="card" class="result-card">
+                    <div class="names-display">
+                        <span id="resName1"></span> <span class="heart">❤️</span> <span id="resName2"></span>
+                    </div>
+                    <div class="gauge-container">
+                        <canvas id="gaugeChart"></canvas>
+                        <div class="percent-overlay">
+                            <span id="percentVal"></span>%
+                        </div>
+                    </div>
+                    <div class="level-badge" id="resLevel"></div>
+                    <p class="summary-text" id="resSummary"></p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">Chủ đạo</div>
+                            <div class="stat-value" id="cdao1"></div>
+                            <div class="stat-label">Linh hồn</div>
+                            <div class="stat-value" id="lhon1"></div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Chủ đạo</div>
+                            <div class="stat-value" id="cdao2"></div>
+                            <div class="stat-label">Linh hồn</div>
+                            <div class="stat-value" id="lhon2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tinh-cach-container">
+                    <div class="tc-card">
+                        <h3 id="tcTitle1"></h3>
+                        <p id="tcText1"></p>
+                    </div>
+                    <div class="tc-card">
+                        <h3 id="tcTitle2"></h3>
+                        <p id="tcText2"></p>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Điểm mạnh của hai bạn</h3>
+                    <div class="radar-container">
+                        <canvas id="radar"></canvas>
+                    </div>
+                </div>
+
+                <div class="luan-grid">
+                    <div class="luan-card">
+                        <span class="emoji">💖</span>
+                        <h4>Tình yêu</h4>
+                        <p id="luan-tinhyeu"></p>
+                    </div>
+                    <div class="luan-card">
+                        <span class="emoji">💼</span>
+                        <h4>Sự nghiệp</h4>
+                        <p id="luan-suynghiep"></p>
+                    </div>
+                    <div class="luan-card">
+                        <span class="emoji">💰</span>
+                        <h4>Tài lộc</h4>
+                        <p id="luan-tailoc"></p>
+                    </div>
+                    <div class="luan-card">
+                        <span class="emoji">📅</span>
+                        <h4>Năm 2027</h4>
+                        <p id="luan-nam2027"></p>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Năm 2027 theo từng tháng</h3>
+                    <div class="bar-container">
+                        <canvas id="months"></canvas>
+                    </div>
+                    <div class="chart-notes">
+                        <p id="maxMonthNote"></p>
+                        <p id="minMonthNote"></p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button id="btnSave" class="btn btn-save">Lưu ảnh kết quả</button>
+                    <button id="btnReset" class="btn btn-outline">Xem cặp khác</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Nội dung mang tính tham khảo, giải trí. · Tác giả: Việt Phan</p>
+        </footer>
+    </div>
+
+    <script src="content.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
