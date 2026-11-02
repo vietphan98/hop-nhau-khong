@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hợp Nhau Không? – Thần số học cặp đôi</title>
+    <title>Hợp Nhau Không? – Thần số học & Tử vi cặp đôi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -15,10 +15,15 @@
     <div class="container">
         <header>
             <h1>Hợp Nhau Không?</h1>
-            <p class="subtitle">Thần số học 2 người (tham khảo, giải trí)</p>
+            <p class="subtitle" id="subtitle">Thần số học 2 người (tham khảo, giải trí)</p>
         </header>
 
-        <main>
+        <nav class="mode-tabs" role="tablist">
+            <button class="mode-tab active" id="tabTSH" data-mode="tsh" role="tab">🔢 Theo thần số học</button>
+            <button class="mode-tab" id="tabTuVi" data-mode="tuvi" role="tab">☯️ Theo tử vi</button>
+        </nav>
+
+        <main id="modeTSH">
             <section class="input-section">
                 <div class="input-card">
                     <h2>Bạn</h2>
@@ -149,6 +154,85 @@
             </section>
         </main>
 
+
+        <main id="modeTuVi" class="hidden">
+            <section class="input-section">
+                <p class="tv-intro">Nhập ngày sinh <b>dương lịch</b>, app tự đổi sang âm lịch (có tháng nhuận), lập lá số 12 cung cho từng người rồi so tuổi, can chi, bản mệnh và cung Phu Thê.</p>
+                <div class="input-card" id="tvP1">
+                    <h2>Bạn</h2>
+                    <div class="form-group"><label for="tvName1">Họ và tên</label><input type="text" id="tvName1" placeholder="Nhập họ tên..."></div>
+                    <div class="form-group"><label for="tvDob1">Ngày sinh dương lịch (ngày/tháng/năm)</label><input type="text" id="tvDob1" inputmode="numeric" placeholder="vd 20/07/1996"></div>
+                    <div class="form-group"><label>Giờ sinh</label><div class="gio-grid" data-for="1"></div></div>
+                    <div class="form-group"><label>Giới tính</label><div class="sex-row" data-for="1"><button type="button" class="chip" data-sex="nam">Nam</button><button type="button" class="chip" data-sex="nu">Nữ</button></div></div>
+                </div>
+                <div class="input-card" id="tvP2">
+                    <h2>Người ấy</h2>
+                    <div class="form-group"><label for="tvName2">Họ và tên</label><input type="text" id="tvName2" placeholder="Nhập họ tên..."></div>
+                    <div class="form-group"><label for="tvDob2">Ngày sinh dương lịch (ngày/tháng/năm)</label><input type="text" id="tvDob2" inputmode="numeric" placeholder="vd 17/06/1998"></div>
+                    <div class="form-group"><label>Giờ sinh</label><div class="gio-grid" data-for="2"></div></div>
+                    <div class="form-group"><label>Giới tính</label><div class="sex-row" data-for="2"><button type="button" class="chip" data-sex="nam">Nam</button><button type="button" class="chip" data-sex="nu">Nữ</button></div></div>
+                </div>
+                <div class="actions">
+                    <button id="tvBtnCalc" class="btn btn-primary">Xem hợp theo tử vi</button>
+                    <button id="tvBtnSample" class="btn btn-secondary">Thử ví dụ</button>
+                    <p id="tvError" class="error-msg"></p>
+                </div>
+            </section>
+
+            <section id="tvResult" class="result-section hidden">
+                <div id="tvCard" class="result-card tv-card">
+                    <div class="tv-card-title">Hợp nhau theo tử vi</div>
+                    <div class="names-display"><span id="tvResName1"></span> <span class="heart">☯️</span> <span id="tvResName2"></span></div>
+                    <div class="gauge-container"><canvas id="tvGauge"></canvas><div class="percent-overlay"><span id="tvPercent"></span>%</div></div>
+                    <div class="level-badge" id="tvLevel"></div>
+                    <p class="summary-text" id="tvSummary"></p>
+                    <div class="stats-grid">
+                        <div class="stat-item"><div class="stat-label">Tuổi</div><div class="stat-value sm" id="tvAge1"></div><div class="stat-label">Bản mệnh</div><div class="stat-value sm" id="tvMenh1"></div></div>
+                        <div class="stat-item"><div class="stat-label">Tuổi</div><div class="stat-value sm" id="tvAge2"></div><div class="stat-label">Bản mệnh</div><div class="stat-value sm" id="tvMenh2"></div></div>
+                    </div>
+                    <div class="tv-card-foot">Tham khảo, giải trí · Việt Phan</div>
+                </div>
+
+                <div class="chart-card" id="tvFactors">
+                    <h3>Vì sao ra con số này?</h3>
+                    <ul class="factor-list" id="tvFactorList"></ul>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Điểm từng phần (0-100)</h3>
+                    <div class="radar-container"><canvas id="tvRadar"></canvas></div>
+                </div>
+
+                <div class="chart-card" id="tvSteps">
+                    <h3>Cách đổi âm lịch &amp; lập lá số</h3>
+                    <div id="tvStepsBody"></div>
+                </div>
+
+                <div class="chart-card" id="tvLaSoBox">
+                    <h3>Lá số 12 cung</h3>
+                    <div class="ls-switch"><button class="chip active" id="tvLs1"></button><button class="chip" id="tvLs2"></button></div>
+                    <div class="laso" id="tvLaSo"></div>
+                    <p class="ls-hint">Chạm vào một cung để đọc lời giải từng sao trong cung đó.</p>
+                </div>
+
+                <div class="chart-card" id="tvGiaiBox">
+                    <h3 id="tvGiaiTitle">Lời giải từng cung</h3>
+                    <div id="tvGiai"></div>
+                </div>
+
+                <div class="chart-card" id="tvSearchBox">
+                    <h3>Tra cứu sao trong cung</h3>
+                    <input type="text" id="tvSearch" placeholder="vd: Thái Âm Phu Thê, Tử Vi, Đào Hoa">
+                    <div id="tvSearchOut" class="search-out"></div>
+                </div>
+
+                <div class="result-actions">
+                    <button id="tvBtnSave" class="btn btn-save">Lưu ảnh kết quả</button>
+                    <button id="tvBtnReset" class="btn btn-outline">Xem cặp khác</button>
+                </div>
+            </section>
+        </main>
+
         <footer>
             <p>Nội dung mang tính tham khảo, giải trí. · Tác giả: Việt Phan</p>
         </footer>
@@ -156,5 +240,8 @@
 
     <script src="content.js"></script>
     <script src="app.js"></script>
+    <script src="tuvi.js"></script>
+    <script src="tuvi-text.js"></script>
+    <script src="tuvi-ui.js"></script>
 </body>
 </html>
