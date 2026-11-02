@@ -47,9 +47,14 @@
   function setGio(p, g) { state.gio[p] = g; document.querySelectorAll(`.gio-grid[data-for="${p}"] .chip`).forEach(c => c.classList.toggle('active', +c.dataset.gio === g)); }
   function setSex(p, s) { state.sex[p] = s; document.querySelectorAll(`.sex-row[data-for="${p}"] .chip`).forEach(c => c.classList.toggle('active', c.dataset.sex === s)); }
   function parseDob(s) {
-    const m = String(s).trim().match(/^(\d{1,2})[\/\-. ](\d{1,2})[\/\-. ](\d{4})$/);
-    if (!m) return null;
-    const d = +m[1], mo = +m[2], y = +m[3];
+    s = String(s).trim();
+    let d, mo, y, m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/); // input type=date
+    if (m) { y = +m[1]; mo = +m[2]; d = +m[3]; }
+    else {
+      m = s.match(/^(\d{1,2})[\/\-. ](\d{1,2})[\/\-. ](\d{4})$/);
+      if (!m) return null;
+      d = +m[1]; mo = +m[2]; y = +m[3];
+    }
     const dt = new Date(y, mo - 1, d);
     if (y < 1900 || y > 2099 || dt.getDate() !== d || dt.getMonth() !== mo - 1) return null;
     return { d, m: mo, y };
@@ -59,7 +64,7 @@
   function readPerson(p) {
     const name = $('tvName' + p).value.trim(), dob = parseDob($('tvDob' + p).value);
     if (!name) return 'Nhập họ tên ' + (p === '1' ? 'của bạn' : 'người ấy') + ' nhé.';
-    if (!dob) return 'Ngày sinh ' + (p === '1' ? 'của bạn' : 'người ấy') + ' chưa đúng dạng ngày/tháng/năm (vd 20/07/1996).';
+    if (!dob) return 'Ngày sinh ' + (p === '1' ? 'của bạn' : 'người ấy') + ' chưa chọn hoặc chưa đúng (bấm ô ngày để mở lịch).';
     if (state.gio[p] === null) return 'Chọn giờ sinh ' + (p === '1' ? 'của bạn' : 'người ấy') + ' (không nhớ thì chọn gần đúng).';
     if (!state.sex[p]) return 'Chọn giới tính ' + (p === '1' ? 'của bạn' : 'người ấy') + ' (tử vi an sao theo giới tính).';
     return { name, ...dob, gio: state.gio[p], nam: state.sex[p] === 'nam' };
@@ -186,8 +191,8 @@
   // ---- Nút ----
   $('tvBtnCalc').addEventListener('click', calc);
   $('tvBtnSample').addEventListener('click', () => {
-    $('tvName1').value = 'Nguyễn Minh Anh'; $('tvDob1').value = '20/07/1996'; setGio('1', 4); setSex('1', 'nu');
-    $('tvName2').value = 'Trần Gia Bảo'; $('tvDob2').value = '17/06/1998'; setGio('2', 6); setSex('2', 'nam');
+    $('tvName1').value = 'Nguyễn Minh Anh'; $('tvDob1').value = '1996-07-20'; setGio('1', 4); setSex('1', 'nu');
+    $('tvName2').value = 'Trần Gia Bảo'; $('tvDob2').value = '1998-06-17'; setGio('2', 6); setSex('2', 'nam');
     $('tvError').innerText = '';
   });
   $('tvBtnReset').addEventListener('click', () => {
